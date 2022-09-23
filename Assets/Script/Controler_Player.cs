@@ -26,9 +26,18 @@ public class Controler_Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+        if(move != Vector3.zero)
+        {
+            float targetAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
 
-        controller.Move(move * speed * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+            
+            controller.Move(move * speed * Time.deltaTime);
+
+        }
+        
+        
 
         //isGrounded = controller.isGrounded;
         isGrounded = Physics.CheckSphere(groundSensor.position, sensorRadius, ground);
