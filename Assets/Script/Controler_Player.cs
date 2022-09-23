@@ -12,6 +12,8 @@ public class Controler_Player : MonoBehaviour
     public float sensorRadius = 0.1f;
 
     public float speed = 5;
+    public float jumpForce = 20;
+    public float jumpHeight = 1;
     private float gravity = -9.81f;
     public bool isGrounded;
 
@@ -33,6 +35,11 @@ public class Controler_Player : MonoBehaviour
         if(isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
+        }
+        if(Input.GetButtonDown("Jump") && isGrounded)
+        {
+            //playerVelocity.y += jumpForce;
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
         }
         playerVelocity.y += gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
