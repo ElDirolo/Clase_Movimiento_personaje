@@ -7,6 +7,9 @@ public class Controler_Player : MonoBehaviour
     
     private CharacterController controller;
     private Vector3 playerVelocity;
+    public Transform groundSensor;
+    public LayerMask ground;
+    public float sensorRadius = 0.1f;
 
     public float speed = 5;
     private float gravity = -9.81f;
@@ -25,7 +28,8 @@ public class Controler_Player : MonoBehaviour
 
         controller.Move(move * speed * Time.deltaTime);
 
-        isGrounded = controller.isGrounded;
+        //isGrounded = controller.isGrounded;
+        isGrounded = Physics.CheckSphere(groundSensor.position, sensorRadius, ground);
         if(isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
