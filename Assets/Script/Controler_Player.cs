@@ -21,12 +21,14 @@ public class Controler_Player : MonoBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+
         if(move != Vector3.zero)
         {
             float targetAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
@@ -37,8 +39,13 @@ public class Controler_Player : MonoBehaviour
 
         }
         
-        
+        Jump();
 
+    }
+
+
+    void Jump()
+    {
         //isGrounded = controller.isGrounded;
         isGrounded = Physics.CheckSphere(groundSensor.position, sensorRadius, ground);
         if(isGrounded && playerVelocity.y < 0)
