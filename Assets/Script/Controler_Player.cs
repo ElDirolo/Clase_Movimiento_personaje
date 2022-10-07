@@ -25,6 +25,8 @@ public class Controler_Player : MonoBehaviour
     public Cinemachine.AxisState xAxis;
     public Cinemachine.AxisState yAxis;
 
+    public GameObject[] cameras;
+
     
     void Awake()
     {
@@ -102,6 +104,21 @@ public class Controler_Player : MonoBehaviour
         yAxis.Update(Time.deltaTime);   
 
         transform.rotation = Quaternion.Euler(0, xAxis.Value, 0);
+        LookAtTransform.eulerAngles = new Vector3(yAxis.Value, xAxis.Value, LookAtTransform.eulerAngles.z);
+        //LookAtTransform.rotation = Quaternion.Euler(yAxis.Value, xAxis.Value, LookAtTransform.eulerAngles.z);
+
+        if(Input.GetButton("Fire2"))
+        {
+            cameras[0].SetActive(false);
+            cameras[1].SetActive(true);
+        }
+        else
+        {
+            {
+            cameras[0].SetActive(true);
+            cameras[1].SetActive(false);    
+            }
+        }
 
         if(move != Vector3.zero)
         {
