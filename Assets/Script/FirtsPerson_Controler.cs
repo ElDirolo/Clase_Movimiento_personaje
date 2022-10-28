@@ -68,4 +68,12 @@ public class FirtsPerson_Controler : MonoBehaviour
         playerVelocity.y += gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
+        void OnTriggerEnter(Collider collider)
+    {
+        if(collider.gameObject.layer == 8)
+        {
+            
+            GameManager.Instance.Choque();
+        }
+    }
 }
